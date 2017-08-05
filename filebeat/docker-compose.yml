@@ -1,0 +1,20 @@
+filebeat:
+  image: vpclub/filebeat:5
+
+  restart: always
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    # filebeat 数据存储
+    - /opt/data/filebeat:/filebeat/data
+    # 配置文件
+    - ./filebeat.yml:/filebeat/filebeat.yml:ro
+    # syslog
+    - /var/log/:/syslog/:ro
+    #
+    # 要收集的日志,与配置文件filebeta.yml中的路径对应
+    # - /var/log/nginx:/logs/nginx:ro
+    # 收集某应用日志, 与filebeat.yml中filebeat.prospectors 区域对应
+
+    # xxapp
+    # - /app/data/app-mobile:/logs/app-mobile:ro
+

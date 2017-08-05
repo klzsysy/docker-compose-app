@@ -1,0 +1,60 @@
+version: '2'
+
+networks:
+  zabbix:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet:  10.190.0.0/24
+        gateway: 10.190.0.1
+
+services:
+  zabbix-db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=zabbix.mysql123
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /app/data/mysql-data:/var/lib/mysql
+      #  chcon -Rt svirt_sandbox_file_t /mysql-data
+    networks:
+      - zabbix
+    restart: always
+
+  zabbix-server:
+    image: zabbix/zabbix-server-mysql:latest
+    ports:
+      - "10051:10051"
+      - "162:162/udp"
+    environment:
+      - DB_SERVER_HOST=zabbix-db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=zabbix.mysql123
+    links:
+      - zabbix-db
+      # 将 Zabbix server 地址配置为主机IP
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - zabbix
+    restart: always
+
+  zabbix-web:
+    image: zabbix/zabbix-web-nginx-mysql
+    ports:
+      - "8888:80"
+    environment:
+      - DB_SERVER_HOST=zabbix-db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=zabbix.mysql123
+      - ZBX_SERVER_HOST=zabbix-server
+      - PHP_TZ="Asia/Shanghai"
+    links:
+      - zabbix-server
+      - zabbix-db
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - zabbix
+    restart: always

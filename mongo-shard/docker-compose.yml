@@ -1,0 +1,62 @@
+# 在mongos 中配置的三个IP地址为运行集群的三台主机
+# 本docker-compose需要在这三台机器上启动，配置保持一致
+# 数据存储在 /app/data/mongodb， 可自行修改
+
+confsrv:
+  image: mongo:3.4
+  restart: always
+  ports:
+    - "21000:21000"
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - /app/data/mongodb/confsrv/data:/data/db
+    - /app/data/mongodb/confsrv/log:/data/log
+  command: mongod --configsvr --replSet cfgReplSet  --dbpath /data/db --port 21000 --logpath /data/log/confsrv.log
+
+
+mongos:
+  image: mongo:3.4
+  restart: always
+  ports:
+    - "27017:27017"
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - /app/data/mongodb/mongos/log:/data/log
+
+  command: mongos  --configdb cfgReplSet/10.182.22.172:21000,10.182.22.173:21000,10.182.22.212:21000 --port 27017  --logpath  /data/log/mongos.log
+
+shard1:
+  image: mongo:3.4
+  restart: always
+  ports:
+    - "22001:22001"
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - /app/data/mongodb/shard1/log:/data/log
+    - /app/data/mongodb/shard1/data:/data/db
+
+  command: mongod --shardsvr --replSet shard1 --port 22001 --dbpath /data/db --logpath /data/log/shard1.log
+
+shard2:
+  image: mongo:3.4
+  restart: always
+  ports:
+    - "22002:22002"
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - /app/data/mongodb/shard2/log:/data/log
+    - /app/data/mongodb/shard2/data:/data/db
+
+  command: mongod --shardsvr --replSet shard2 --port 22002 --dbpath /data/db --logpath /data/log/shard2.log
+
+shard3:
+  image: mongo:3.4
+  restart: always
+  ports:
+    - "22003:22003"
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - /app/data/mongodb/shard3/log:/data/log
+    - /app/data/mongodb/shard3/data:/data/db
+
+  command: mongod --shardsvr --replSet shard3 --port 22003 --dbpath /data/db --logpath /data/log/shard3.log

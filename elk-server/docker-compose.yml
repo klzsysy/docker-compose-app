@@ -1,0 +1,28 @@
+elk:
+  image: sebp/elk
+  ports:
+    - "5601:5601"
+    - "9200:9200"
+    - "5044:5044"
+    - "9300:9300"
+
+  environment:
+    - TZ=Asia/Shanghai
+  # 特权启动 否则失败
+  privileged: true
+  restart: always
+  
+  volumes:
+    # 数据存储 权限错误将无法启动
+    # chown -R 991:991 /opt/data/elk-data
+    - /opt/data/elk-data:/var/lib/elasticsearch
+    # 关闭ssl
+    - ./02-beats-input.conf:/etc/logstash/conf.d/02-beats-input.conf
+    # ------------------------自定义部分----------------
+    # 要添加自定义过滤器 文件名在02之后30之前即可
+    # 当前已有配置
+    # root@852efb3daadf:/etc/logstash/conf.d# ls
+    # 02-beats-input.conf  10-syslog.conf  11-nginx.conf  30-output.conf
+    # 
+    # 将自定义配置载入
+    # - ./03-xxx.conf:/etc/logstash/conf.d/03-xxx.conf

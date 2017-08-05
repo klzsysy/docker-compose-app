@@ -1,0 +1,50 @@
+2017-07-16T13:38:47+08:00 INFO Metrics logging every 30s
+2017-07-16T13:38:47+08:00 INFO Loading template enabled. Reading template file: /root/filebeat-5.5.0-linux-x86_64/filebeat.template.json
+2017-07-16T13:38:47+08:00 INFO Loading template enabled for Elasticsearch 2.x. Reading template file: /root/filebeat-5.5.0-linux-x86_64/filebeat.template-es2x.json
+2017-07-16T13:38:47+08:00 INFO Loading template enabled for Elasticsearch 6.x. Reading template file: /root/filebeat-5.5.0-linux-x86_64/filebeat.template-es6x.json
+2017-07-16T13:38:47+08:00 INFO Elasticsearch url: http://192.168.242.132:9200
+2017-07-16T13:38:47+08:00 INFO Activated elasticsearch as output plugin.
+2017-07-16T13:38:47+08:00 INFO Publisher name: localhost.localdomain
+2017-07-16T13:38:47+08:00 INFO Flush Interval set to: 1s
+2017-07-16T13:38:47+08:00 INFO Max Bulk Size set to: 50
+2017-07-16T13:38:47+08:00 INFO filebeat start running.
+2017-07-16T13:38:47+08:00 INFO Registry file set to: /root/filebeat-5.5.0-linux-x86_64/data/registry
+2017-07-16T13:38:47+08:00 INFO Loading registrar data from /root/filebeat-5.5.0-linux-x86_64/data/registry
+2017-07-16T13:38:47+08:00 INFO States Loaded from registrar: 2
+2017-07-16T13:38:47+08:00 INFO Loading Prospectors: 1
+2017-07-16T13:38:47+08:00 INFO Starting Registrar
+2017-07-16T13:38:47+08:00 INFO Prospector with previous states loaded: 2
+2017-07-16T13:38:47+08:00 INFO Start sending events to output
+2017-07-16T13:38:47+08:00 WARN DEPRECATED: document_type is deprecated. Use fields instead.
+2017-07-16T13:38:47+08:00 INFO Starting prospector of type: log; id: 7897661319672306657 
+2017-07-16T13:38:47+08:00 INFO Loading and starting Prospectors completed. Enabled prospectors: 1
+2017-07-16T13:38:47+08:00 INFO Starting spooler: spool_size: 2048; idle_timeout: 5s
+2017-07-16T13:39:17+08:00 INFO Non-zero metrics in the last 30s: publish.events=2 registrar.states.current=2 registrar.states.update=2 registrar.writes=1
+2017-07-16T13:39:17+08:00 INFO Harvester started for file: /var/log/nginx/access.log
+2017-07-16T13:39:22+08:00 INFO Connected to Elasticsearch version 5.5.0
+2017-07-16T13:39:22+08:00 INFO Trying to load template for client: http://192.168.242.132:9200
+2017-07-16T13:39:22+08:00 INFO Template already exists and will not be overwritten.
+2017-07-16T13:39:47+08:00 INFO Non-zero metrics in the last 30s: filebeat.harvester.open_files=1 filebeat.harvester.running=1 filebeat.harvester.started=1 libbeat.es.call_count.PublishEvents=1 libbeat.es.publish.read_bytes=809 libbeat.es.publish.write_bytes=2043 libbeat.es.published_and_acked_events=3 libbeat.publisher.published_events=3 publish.events=4 registrar.states.update=4 registrar.writes=1
+2017-07-16T13:40:17+08:00 INFO No non-zero metrics in the last 30s
+2017-07-16T13:40:47+08:00 INFO No non-zero metrics in the last 30s
+2017-07-16T13:41:17+08:00 INFO No non-zero metrics in the last 30s
+2017-07-16T13:41:47+08:00 INFO No non-zero metrics in the last 30s
+2017-07-16T13:42:17+08:00 INFO No non-zero metrics in the last 30s
+2017-07-16T13:42:47+08:00 INFO No non-zero metrics in the last 30s
+2017-07-16T13:43:17+08:00 INFO No non-zero metrics in the last 30s
+2017-07-16T13:43:47+08:00 INFO No non-zero metrics in the last 30s
+2017-07-16T13:44:17+08:00 INFO No non-zero metrics in the last 30s
+2017-07-16T13:44:24+08:00 INFO Stopping filebeat
+2017-07-16T13:44:24+08:00 INFO Stopping Crawler
+2017-07-16T13:44:24+08:00 INFO Stopping 1 prospectors
+2017-07-16T13:44:24+08:00 INFO Prospector channel stopped because beat is stopping.
+2017-07-16T13:44:24+08:00 INFO Prospector ticker stopped
+2017-07-16T13:44:24+08:00 INFO Stopping Prospector: 7897661319672306657
+2017-07-16T13:44:24+08:00 INFO Reader was closed: /var/log/nginx/access.log. Closing.
+2017-07-16T13:44:24+08:00 INFO Crawler stopped
+2017-07-16T13:44:24+08:00 INFO Stopping spooler
+2017-07-16T13:44:24+08:00 INFO Stopping Registrar
+2017-07-16T13:44:24+08:00 INFO Ending Registrar
+2017-07-16T13:44:24+08:00 INFO Total non-zero values:  filebeat.harvester.closed=1 filebeat.harvester.started=1 libbeat.es.call_count.PublishEvents=1 libbeat.es.publish.read_bytes=809 libbeat.es.publish.write_bytes=2043 libbeat.es.published_and_acked_events=3 libbeat.publisher.published_events=3 publish.events=6 registrar.states.current=2 registrar.states.update=6 registrar.writes=3
+2017-07-16T13:44:24+08:00 INFO Uptime: 5m36.816462044s
+2017-07-16T13:44:24+08:00 INFO filebeat stopped.

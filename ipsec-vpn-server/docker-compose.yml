@@ -1,0 +1,13 @@
+ipsec-vpn:
+  image: hwdsl2/ipsec-vpn-server
+  ports:
+    - "500:500/udp"
+    - "4500:4500/udp"
+  environment:
+    - VPN_IPSEC_PSK=passwordpsk
+    - VPN_USER=ipsec
+    - VPN_PASSWORD=passwd
+  restart: always
+  privileged: true
+  volumes:
+    - /lib/modules:/lib/modules:ro
