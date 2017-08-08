@@ -19,7 +19,7 @@ elk:
     # 关闭ssl
     - ./02-beats-input.conf:/etc/logstash/conf.d/02-beats-input.conf
     # 加载nginx error 日志过滤器
-    # - ./12-nginx-error.conf:/etc/logstash/conf.d/12-nginx-error.conf
+    - ./12-nginx-error.conf:/etc/logstash/conf.d/12-nginx-error.conf
     # ------------------------自定义部分----------------
     # 要添加自定义过滤器 文件名在02之后30之前即可
     # 当前已有配置
