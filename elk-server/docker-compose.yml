@@ -14,10 +14,12 @@ elk:
   
   volumes:
     # 数据存储 权限错误将无法启动
-    # chown -R 991:991 /opt/data/elk-data
-    - /opt/data/elk-data:/var/lib/elasticsearch
+    # chown -R 991:991 /app/data/elk-data
+    - /app/data/elk-data:/var/lib/elasticsearch
     # 关闭ssl
     - ./02-beats-input.conf:/etc/logstash/conf.d/02-beats-input.conf
+    # 加载nginx error 日志过滤器
+    # - ./12-nginx-error.conf:/etc/logstash/conf.d/12-nginx-error.conf
     # ------------------------自定义部分----------------
     # 要添加自定义过滤器 文件名在02之后30之前即可
     # 当前已有配置
