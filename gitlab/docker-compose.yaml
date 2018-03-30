@@ -1,0 +1,28 @@
+gitlab:
+  image: 'gitlab/gitlab-ce:latest'
+  restart: always
+  hostname: 'sdgit.vpclub.cn'
+  environment:
+    GITLAB_OMNIBUS_CONFIG: |
+      external_url 'https://sdgit.vpclub.cn'
+      nginx['redirect_http_to_https'] = true
+      gitlab_rails['gitlab_shell_ssh_port'] = 8022
+      gitlab_rails['smtp_enable'] = true
+      gitlab_rails['smtp_address'] = "smtp.exmail.qq.com"
+      gitlab_rails['smtp_port'] = 465
+      gitlab_rails['smtp_user_name'] = "xx@xx.cn"
+      gitlab_rails['smtp_password'] = "xx.888"
+      gitlab_rails['smtp_authentication'] = "login"
+      gitlab_rails['smtp_enable_starttls_auto'] = true
+      gitlab_rails['smtp_tls'] = true
+      gitlab_rails['gitlab_email_from'] = 'xx@xx.cn'
+      # Add any other gitlab.rb configuration here, each on its own line
+  ports:
+    - '80:80'
+    - '443:443'
+    - '8022:22'
+  volumes:
+    # key and crt in .gitlab/config/ssl
+    - './gitlab/config:/etc/gitlab'
+    - './gitlab/logs:/var/log/gitlab'
+    - './gitlab/data:/var/opt/gitlab'

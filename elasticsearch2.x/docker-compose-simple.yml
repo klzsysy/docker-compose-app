@@ -1,0 +1,36 @@
+# 单主机多节点
+elamaster:
+  image: elasticsearch:2.4.1
+  restart: always
+  ports:
+   - 9200:9200
+   - 9300:9300
+  volumes:
+   - ./data:/usr/share/elasticsearch/data
+   - ./config:/usr/share/elasticsearch/config
+   - ./plugins:/usr/share/elasticsearch/plugins
+  command: /usr/share/elasticsearch/bin/elasticsearch 
+    -Des.insecure.allow.root=true 
+    -Des.cluster.name=elasticsearch-default 
+    -Des.node.master=true 
+    -Des.node.name=node1
+
+
+ela-node:
+  image: elasticsearch:2.4.1
+  restart: always
+  links:
+   - elamaster
+  ports:
+   - 9201:9200
+   - 9301:9300
+  volumes:
+   - ./data2:/usr/share/elasticsearch/data
+   - ./config2:/usr/share/elasticsearch/config
+   - ./plugins:/usr/share/elasticsearch/plugins
+  command: /usr/share/elasticsearch/bin/elasticsearch 
+    -Des.insecure.allow.root=true 
+    -Des.cluster.name=elasticsearch-default 
+    -Des.discovery.zen.ping.unicast.hosts=elamaster 
+    -Des.node.name=node2
+    -Dnode.master=false

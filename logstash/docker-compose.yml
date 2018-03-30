@@ -1,0 +1,11 @@
+logstash:
+  image: logstash:5
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    # 连接logstash配置文件
+    - ./20-application.conf:/etc/logstash/conf.d/20-application.conf:ro
+    # 连接要监控的日志文件
+    - /var/log:/log:ro
+  restart: always
+  privileged: true
+  command: ["-f", "/etc/logstash/conf.d/20-application.conf"]

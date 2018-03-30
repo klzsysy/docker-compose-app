@@ -1,0 +1,70 @@
+# 多主机多节点
+# 一个主机一节点
+# 注意修改config目录中elasticseaech.yaml中的node.name
+# 查看节点状态:
+# curl 'http://localhost:9200/_nodes/process?pretty' 
+---
+
+elasticsearch1:
+  image: elasticsearch:2.4.1
+  restart: always
+  ports:
+    - 9200:9200
+    - 9300:9300
+  volumes:
+    - ./data/elasticsearch:/usr/share/elasticsearch/data
+    - ./config:/usr/share/elasticsearch/config
+    - ./plugins:/usr/share/elasticsearch/plugins
+  #最少master = eligible_master_number/2 + 1
+  command:
+    /usr/share/elasticsearch/bin/elasticsearch
+    -Des.insecure.allow.root=true
+    -Des.cluster.name=elasticsearch-default
+    -Des.node.master=true
+    -Des.node.data=true
+    -Des.node.name=node1
+    -Des.discovery.zen.minimum_master_nodes=2
+    -Des.network.publish_host=10.209.176.243
+    -Des.discovery.zen.ping.unicast.hosts="10.209.176.244:9300,10.209.176.245:9300"
+
+elasticsearch2:
+  image: elasticsearch:2.4.1
+  restart: always
+  ports:
+    - 9200:9200
+    - 9300:9300
+  volumes:
+    - ./data/elasticsearch:/usr/share/elasticsearch/data
+    - ./config2:/usr/share/elasticsearch/config
+    - ./plugins:/usr/share/elasticsearch/plugins
+  command:
+    /usr/share/elasticsearch/bin/elasticsearch
+    -Des.insecure.allow.root=true
+    -Des.cluster.name=elasticsearch-default
+    -Des.node.master=true
+    -Des.node.data=true
+    -Des.node.name=node2
+    -Des.discovery.zen.minimum_master_nodes=2
+    -Des.network.publish_host=10.209.176.244
+    -Des.discovery.zen.ping.unicast.hosts="10.209.176.243:9300,10.209.176.245:9300"
+
+elasticsearch3:
+  image: elasticsearch:2.4.1
+  restart: always
+  ports:
+    - 9200:9200
+    - 9300:9300
+  volumes:
+    - ./data/elasticsearch:/usr/share/elasticsearch/data
+    - ./config3:/usr/share/elasticsearch/config
+    - ./plugins:/usr/share/elasticsearch/plugins
+  command:
+    /usr/share/elasticsearch/bin/elasticsearch
+    -Des.insecure.allow.root=true
+    -Des.cluster.name=elasticsearch-default
+    -Des.node.master=true
+    -Des.node.data=true
+    -Des.node.name=node3
+    -Des.discovery.zen.minimum_master_nodes=2
+    -Des.network.publish_host=10.209.176.245
+    -Des.discovery.zen.ping.unicast.hosts="10.209.176.243:9300,10.209.176.244:9300"

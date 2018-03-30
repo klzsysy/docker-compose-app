@@ -1,0 +1,15 @@
+version: "2"
+
+services:
+
+  db_b:
+    image: mongo:3.4
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./db/data:/data/db
+      - ./db/log:/data/log
+    command: mongod  --replSet rs0  --dbpath /data/db --port 27017 --logpath /data/log/db.log
+    network_mode: "host"

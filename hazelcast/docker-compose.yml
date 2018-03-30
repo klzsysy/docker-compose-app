@@ -1,0 +1,12 @@
+version: "2"
+
+services:
+  hazelcast:
+    image: hazelcast/hazelcast:3.8.6
+    restart: always
+    network_mode: "host"
+    environment:
+      - TZ=Asia/Shanghai
+      # - JAVA_OPTS=-XX:+ExitOnOutOfMemoryError -Xms4G -Xmx8G
+    volumes:
+      - ./hazelcast.xml:/opt/hazelcast/hazelcast.xml

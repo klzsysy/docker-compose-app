@@ -1,0 +1,19 @@
+# 单节点
+mongo:
+  image: mongo:3.4
+  restart: always
+  environment:
+    - TZ=Asia/Shanghai
+  ports:
+    - "27017:27017"
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - ./db:/data/db
+
+# mkdir ./db
+# chown 999 -R ./db
+# sed -i 's/^SELINUX=.*/SELINUX=disabled/g'  /etc/selinux/config
+# setenforce 0
+
+# systemctl is-active firewalld &>/dev/null && firewall-cmd --add-port=27017/tcp --permanent && systemctl restart firewalld
+# systemctl is-active iptables &>/dev/null && iptables -I INPUT 4 -p tcp  -m state --state NEW --dport 27017 -j ACCEPT && service iptables save

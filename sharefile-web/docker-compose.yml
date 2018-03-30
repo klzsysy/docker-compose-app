@@ -1,0 +1,10 @@
+nginx:
+  image: nginx:latest
+  restart: always
+  ports:
+    - 8080:80
+  environment:
+    - TZ=Asia/Shanghai
+  volumes:
+    - ./nginx_sahrefile.conf:/etc/nginx/conf.d/default.conf:ro
+    - ./sharefile:/usr/share/nginx/html:ro

@@ -1,0 +1,51 @@
+mq:
+  image: rabbitmq:3.6.14-management-alpine
+  restart: always
+  net: host
+  # ports:
+  #   - 5672:5672
+  #   - 15672:15672
+  #   - 25672:25672
+  #   - 4369:4369
+  volumes:
+    - ./hosts:/etc/hosts
+    - ./data:/var/lib/rabbitmq
+  environment:
+    - TZ=Asia/Shanghai
+    - RABBITMQ_ERLANG_COOKIE=this.is.Sonny.Build
+
+# net:host 模式后容器名为主机名
+# hosts要能解析所有参与集群的主机，无需DNS
+# hosts为宿主机的不包含搜索域的主机名
+
+# build cluster
+# 数量根据部署数量修改
+# docker exec -it rabbitmq_mq_1 bash
+# rabbitmqctl set_policy ha-all "." '{"ha-mode":"exactly","ha-params":3,"ha-sync-mode":"automatic"}'
+# rabbitmqctl cluster_status
+
+
+
+# join cluster
+#
+# docker exec -it rabbitmq_mq_1 bash
+# rabbitmqctl stop_app
+# 注意 "rabbit@" 不能少
+# rabbitmqctl join_cluster rabbit@<hostname>
+# rabbitmqctl start_app
+
+
+# 打开防火墙
+
+# systemctl is-active iptables && \
+# iptables -I INPUT 5 -p tcp --dport 4369 -m state --state NEW -j ACCEPT && \
+# iptables -I INPUT 5 -p tcp --dport 15672 -m state --state NEW -j ACCEPT && \
+# iptables -I INPUT 5 -p tcp --dport 25672 -m state --state NEW -j ACCEPT && \
+# iptables -I INPUT 5 -p tcp --dport 5672 -m state --state NEW -j ACCEPT && \
+# service iptables save
+
+# systemctl is-active firewalld &>/dev/null && firewall-cmd --add-port=4369/tcp --permanent && \
+# firewall-cmd --add-port=15672/tcp --permanent && \
+# firewall-cmd --add-port=25672/tcp --permanent && \
+# firewall-cmd --add-port=5672/tcp --permanent && \
+# systemctl restart firewalld

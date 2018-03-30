@@ -1,0 +1,13 @@
+{
+    "type": "jdbc",
+    "interval": "10",
+    "jdbc": {
+        "driver": "com.microsoft.sqlserver.jdbc.SQLServerDriver",
+        "url": "jdbc:sqlserver://172.16.45.1:1566;databaseName=vpclubcloud",
+        "user": "vpclubcloud",
+        "password": "vpclub#cloud^_123qKP#d",
+        "sql": "select top 1000 * from hk_article",
+        "index": "indextest",
+        "type": "article"
+    }
+}

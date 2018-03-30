@@ -1,0 +1,27 @@
+registry:
+  image: registry:2
+  restart: always
+  ports:
+    - 443:443
+  environment:
+    - REGISTRY_HTTP_ADDR="0.0.0.0:443"
+    - REGISTRY_HTTP_TLS_CERTIFICATE=/certs/server.crt
+    - REGISTRY_HTTP_TLS_KEY=/certs/server.key
+  volumes:
+    - /mnt/registry:/var/lib/registry
+    - ./certs:/certs
+
+
+# 创建自签名证书
+# 生成私钥
+# mkdir certs && cd certs
+# openssl genrsa -out server.key 1024
+#
+# 用私钥生成自签名的cer证书格式文件
+# openssl req -new -x509 -days 3650 -key server.key -out server.crt -subj "/C=CN/ST=mykey/L=mykey/O=mykey/OU=mykey/CN=domain1/CN=domain2/CN=domain3"
+#
+# 在客户端添加不安全的registry
+# cat >/etc/docker/daemon.json <<'EOF'
+#{
+#  "insecure-registries" : ["https://registry-console-default.apps.vpclub.io" ,"https://registry.xxx.com"]
+#}

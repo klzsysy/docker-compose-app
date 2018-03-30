@@ -6,6 +6,6 @@ shadowsocksr:
       - "9998:9998/tcp"
     environment:
       - PORT=9998
-      - PASSWORD=klzsysy
+      - PASSWORD=xxx
       - METHOD=aes-256-cfb
     restart: always

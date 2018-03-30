@@ -1,0 +1,10 @@
+version: '2'
+services:
+  gitlab-runner:
+    container_name: gitlab-runner
+    image: gitlab/gitlab-runner:latest
+    restart: always
+    volumes:
+      # touch ./config.toml
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config.toml:/etc/gitlab-runner/config.toml
