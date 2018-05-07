@@ -1,0 +1,10 @@
+
+cassandra-pre:
+  image: kong:0.12
+  environment:
+    TZ: Asia/Shanghai
+    KONG_DATABASE: cassandra
+    KONG_CASSANDRA_CONTACT_POINTS: database_kong_1
+  command: kong migrations up
+  external_links:
+    - database_kong_1

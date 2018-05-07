@@ -1,0 +1,10 @@
+
+kong:
+  image: cassandra:3
+  restart: always
+  privileged: true
+  environment:
+    TZ: Asia/Shanghai
+  volumes:
+    - ./data:/var/lib/cassandra
+    - ./log:/var/log/cassandra

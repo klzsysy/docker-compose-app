@@ -1,0 +1,24 @@
+
+kong:
+  image: kong:0.12
+  restart: always
+  external_links:
+    - database_kong_1
+  environment:
+    TZ: Asia/Shanghai
+    KONG_DATABASE: cassandra
+    KONG_CASSANDRA_CONTACT_POINTS: database_kong_1
+    KONG_PROXY_ACCESS_LOG: /dev/stdout
+    KONG_ADMIN_ACCESS_LOG: /dev/stdout
+    KONG_PROXY_ERROR_LOG: /dev/stdout
+    KONG_ADMIN_ERROR_LOG: /dev/stdout
+    KONG_ADMIN_LISTEN: 0.0.0.0:8001
+    KONG_ADMIN_LISTEN_SSL: 0.0.0.0:8444
+    KONG_PROXY_LISTEN: 0.0.0.0:8000
+    KONG_PROXY_LISTEN_SSL: 0.0.0.0:8443
+  ports:
+    - 8000:8000
+    - 8443:8443
+    - 8001:8001
+    - 8444:8444
+

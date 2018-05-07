@@ -1,0 +1,13 @@
+kong:
+  image: pgbi/kong-dashboard:v3
+  restart: always
+  environment:
+    - TZ=Asia/Shanghai
+    - KONG_HOST=http://kong_kong_1:8001
+    - KONG_DASHBOARD_USER=master
+    - KONG_DASHBOARD_PASSWORD=sonny.klzsysy
+  ports:
+    - 8080:8080
+  external_links:
+    - kong_kong_1
+  entrypoint: [ "sh", "-c","./docker/entrypoint.sh start --kong-url $${KONG_HOST} --basic-auth $${KONG_DASHBOARD_USER}=$${KONG_DASHBOARD_PASSWORD}" ]

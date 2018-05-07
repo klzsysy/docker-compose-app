@@ -1,0 +1,8 @@
+k8s-lb:
+  image: haproxy:latest
+  restart: always
+  ports:
+    - 6443:6443
+  volumes:
+    - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+  command: ['/usr/local/sbin/haproxy','-db','-f','/usr/local/etc/haproxy/haproxy.cfg']
