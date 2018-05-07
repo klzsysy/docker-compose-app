@@ -1,6 +1,6 @@
 # 多主机多节点
 # 一个主机一节点
-# 注意修改config目录中elasticseaech.yaml中的node.name
+# 注意修改config中elasticseaech.yaml中的node.name
 # 查看节点状态:
 # curl 'http://localhost:9200/_nodes/process?pretty' 
 ---
@@ -8,9 +8,7 @@
 elasticsearch1:
   image: elasticsearch:2.4.1
   restart: always
-  ports:
-    - 9200:9200
-    - 9300:9300
+  net: 'host'
   volumes:
     - ./data/elasticsearch:/usr/share/elasticsearch/data
     - ./config:/usr/share/elasticsearch/config
@@ -30,9 +28,7 @@ elasticsearch1:
 elasticsearch2:
   image: elasticsearch:2.4.1
   restart: always
-  ports:
-    - 9200:9200
-    - 9300:9300
+  net: 'host'
   volumes:
     - ./data/elasticsearch:/usr/share/elasticsearch/data
     - ./config2:/usr/share/elasticsearch/config
@@ -51,9 +47,7 @@ elasticsearch2:
 elasticsearch3:
   image: elasticsearch:2.4.1
   restart: always
-  ports:
-    - 9200:9200
-    - 9300:9300
+  net: 'host'
   volumes:
     - ./data/elasticsearch:/usr/share/elasticsearch/data
     - ./config3:/usr/share/elasticsearch/config
