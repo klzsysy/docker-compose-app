@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 logs(){
-    echo "$(date '+%Y-%m-%d %H:%M:%S'): $@"
+    echo -e "$(date '+%Y-%m-%d %H:%M:%S'): $@"
 }
 mkdir -p ${BASE_PATH}/storage
 
@@ -59,17 +59,10 @@ echo '# --- apply env $GROUP_NAME ---' >> /etc/fdfs/mod_fastdfs.conf
 echo "[${GROUP_NAME}]" >> /etc/fdfs/mod_fastdfs.conf
 echo "group_name=${GROUP_NAME}" >> /etc/fdfs/mod_fastdfs.conf
 echo "storage_server_port=$STORAGE_PORT" >> /etc/fdfs/mod_fastdfs.conf
+# 只有一个路径
 echo "store_path_count=1" >> /etc/fdfs/mod_fastdfs.conf
 echo "store_path0=$STORAGE_PATH0" >> /etc/fdfs/mod_fastdfs.conf
 
-# if [ ${GROUP_COUNT} -gt 0 ];then
-#     echo "[group${GROUP_COUNT}]" >> /etc/fdfs/mod_fastdfs.conf
-#     echo "group_name=group${GROUP_COUNT}" >> /etc/fdfs/mod_fastdfs.conf
-#     echo "storage_server_port=$STORAGE_PORT" >> /etc/fdfs/mod_fastdfs.conf
-#     echo "store_path_count=1" >> /etc/fdfs/mod_fastdfs.conf
-#     echo "store_path0=$STORAGE_PATH0" >> /etc/fdfs/mod_fastdfs.conf
-#     GROUP_COUNT=$(expr ${GROUP_COUNT} - 1)
-# fi
 
 cd /etc/fdfs
 touch mime.types
